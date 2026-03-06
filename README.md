@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цитаты Семёна Юрьева · музыка + избранное</title>
+    <title>Семён Юрьевтің дәйексөздері · музыка + таңдаулылар</title>
     <style>
         * {
             margin: 0;
@@ -62,14 +62,14 @@
             color: #42507c;
         }
 
-        body.theme-light .btn, body.theme-light .music-btn {
+        body.theme-light .btn, body.theme-light .music-btn, body.theme-light .lang-btn {
             background: #cfd7f0;
             color: #101624;
             border: 1px solid #7c89b1;
             box-shadow: 0 6px 12px -8px #2a314d;
         }
 
-        body.theme-light .btn:hover, body.theme-light .music-btn:hover {
+        body.theme-light .btn:hover, body.theme-light .music-btn:hover, body.theme-light .lang-btn:hover {
             background: #e1e8ff;
             border-color: #4e6191;
         }
@@ -190,13 +190,13 @@
             color: #5f6b92;
         }
 
-        body.theme-dark .btn, body.theme-dark .music-btn {
+        body.theme-dark .btn, body.theme-dark .music-btn, body.theme-dark .lang-btn {
             background: #38405f;
             color: white;
             border: 1px solid #545e82;
         }
 
-        body.theme-dark .btn:hover, body.theme-dark .music-btn:hover {
+        body.theme-dark .btn:hover, body.theme-dark .music-btn:hover, body.theme-dark .lang-btn:hover {
             background: #4a5479;
             border-color: #7783b3;
         }
@@ -318,14 +318,14 @@
             color: #a03d6b;
         }
 
-        body.theme-azure .btn, body.theme-azure .music-btn {
+        body.theme-azure .btn, body.theme-azure .music-btn, body.theme-azure .lang-btn {
             background: #e3c9ff;
             color: #2d1152;
             border: 1px solid #c77dff;
             box-shadow: 0 6px 12px -8px #b066d9;
         }
 
-        body.theme-azure .btn:hover, body.theme-azure .music-btn:hover {
+        body.theme-azure .btn:hover, body.theme-azure .music-btn:hover, body.theme-azure .lang-btn:hover {
             background: #f0dcff;
             border-color: #b23c7a;
         }
@@ -555,15 +555,16 @@
 
         body.theme-video1 .btn, body.theme-video1 .music-btn,
         body.theme-video2 .btn, body.theme-video2 .music-btn,
-        body.theme-photo .btn, body.theme-photo .music-btn {
+        body.theme-photo .btn, body.theme-photo .music-btn, body.theme-video1 .lang-btn,
+        body.theme-video2 .lang-btn, body.theme-photo .lang-btn {
             background: #3e3363;
             color: white;
             border: 1px solid #7a64b0;
         }
 
-        body.theme-video1 .btn:hover, body.theme-video1 .music-btn:hover,
-        body.theme-video2 .btn:hover, body.theme-video2 .music-btn:hover,
-        body.theme-photo .btn:hover, body.theme-photo .music-btn:hover {
+        body.theme-video1 .btn:hover, body.theme-video1 .music-btn:hover, body.theme-video1 .lang-btn:hover,
+        body.theme-video2 .btn:hover, body.theme-video2 .music-btn:hover, body.theme-video2 .lang-btn:hover,
+        body.theme-photo .btn:hover, body.theme-photo .music-btn:hover, body.theme-photo .lang-btn:hover {
             background: #524585;
             border-color: #a58bff;
         }
@@ -813,7 +814,7 @@
             letter-spacing: 0.3px;
         }
 
-        .btn, .music-btn {
+        .btn, .music-btn, .sort-btn, .lang-btn {
             border: none;
             font-size: 1rem;
             font-weight: 500;
@@ -826,7 +827,7 @@
             margin-top: 5px;
         }
 
-        .btn:active, .music-btn:active {
+        .btn:active, .music-btn:active, .sort-btn:active, .lang-btn:active {
             transform: scale(0.98);
         }
 
@@ -838,7 +839,7 @@
             flex-wrap: wrap;
         }
 
-        .theme-btn {
+        .theme-btn, .lang-btn {
             background: transparent;
             border: 1.5px solid currentColor;
             border-radius: 40px;
@@ -851,20 +852,20 @@
             color: inherit;
         }
 
-        .theme-btn.active {
+        .theme-btn.active, .lang-btn.active {
             opacity: 1;
             background: rgba(128, 128, 255, 0.2);
             border-width: 2px;
             font-weight: 600;
         }
 
-        body.theme-light .theme-btn.active {
+        body.theme-light .theme-btn.active, body.theme-light .lang-btn.active {
             background: #bed0ff;
             border-color: #1a1f3c;
             color: #131a30;
         }
 
-        body.theme-azure .theme-btn.active {
+        body.theme-azure .theme-btn.active, body.theme-azure .lang-btn.active {
             background: #f2d9ff;
             border-color: #9b4dff;
             color: #2b0d4a;
@@ -976,6 +977,89 @@
             margin-top: 0;
         }
 
+        /* QR код */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-modal.active {
+            display: flex;
+        }
+
+        .qr-content {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .qr-content.dark {
+            background: #1d212f;
+            color: white;
+        }
+
+        .qr-content.light {
+            background: #e7ecfd;
+            color: #1e1f2b;
+        }
+
+        .qr-content.azure {
+            background: #f7ecff;
+            color: #2c104b;
+        }
+
+        #qrCanvas {
+            margin: 20px auto;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .close-qr {
+            margin-top: 20px;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* сортировка */
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .sort-btn {
+            background: var(--btn-bg, #38405f);
+            color: var(--btn-color, white);
+            border: 1px solid var(--btn-border, #545e82);
+        }
+
+        .sort-btn.active {
+            background: #4f7df3;
+            border-color: #6f8cff;
+        }
+
+        /* переключатель языков */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 15px;
+        }
+
         /* Медиа-запрос для мобильных устройств */
         @media (max-width: 600px) {
             .container { 
@@ -993,8 +1077,14 @@
             .search-clear { 
                 padding: 8px 15px; 
             }
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 10px;
+            }
         }
     </style>
+    <!-- Библиотека для QR кода -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
 </head>
 <body class="theme-dark">
     <!-- ВИДЕО ФОН 1 — возьми телефон -->
@@ -1012,29 +1102,44 @@
     <!-- ФОТО ФОН -->
     <img class="photo-bg" src="photo_2026-01-19_23-11-33.jpg" alt="Фоновое изображение">
 
+    <!-- QR модальное окно -->
+    <div class="qr-modal" id="qrModal">
+        <div class="qr-content" id="qrContent">
+            <h3 id="qrQuoteText">Цитата</h3>
+            <canvas id="qrCanvas"></canvas>
+            <button class="close-qr" id="closeQrBtn">Закрыть</button>
+        </div>
+    </div>
+
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-            <h1>Семён Юрьев</h1>
-            <div class="theme-switcher">
-                <button class="theme-btn" id="themeDarkBtn" data-theme="dark">🌙 тёмная</button>
-                <button class="theme-btn" id="themeLightBtn" data-theme="light">☀️ светлая</button>
-                <button class="theme-btn" id="themeAzureBtn" data-theme="azure">💜 лазурная</button>
-                <button class="theme-btn" id="themeVideo1Btn" data-theme="video1">📱 возьми телефон</button>
-                <button class="theme-btn" id="themeVideo2Btn" data-theme="video2">🎬 скилзскам</button>
-                <button class="theme-btn" id="themePhotoBtn" data-theme="photo">🖼️ фото</button>
+            <h1 id="siteTitle">Семён Юрьев</h1>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <div class="language-switcher">
+                    <button class="lang-btn" id="langRuBtn" data-lang="ru">🇷🇺 Русский</button>
+                    <button class="lang-btn" id="langKzBtn" data-lang="kz">🇰🇿 Қазақша</button>
+                </div>
+                <div class="theme-switcher">
+                    <button class="theme-btn" id="themeDarkBtn" data-theme="dark">🌙 тёмная</button>
+                    <button class="theme-btn" id="themeLightBtn" data-theme="light">☀️ светлая</button>
+                    <button class="theme-btn" id="themeAzureBtn" data-theme="azure">💜 лазурная</button>
+                    <button class="theme-btn" id="themeVideo1Btn" data-theme="video1">📱 возьми телефон</button>
+                    <button class="theme-btn" id="themeVideo2Btn" data-theme="video2">🎬 скилзскам</button>
+                    <button class="theme-btn" id="themePhotoBtn" data-theme="photo">🖼️ фото</button>
+                </div>
             </div>
         </div>
-        <div class="subhead">цитаты, которые стали легендой</div>
+        <div class="subhead" id="subheadText">цитаты, которые стали легендой</div>
 
         <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
         <div class="music-player">
-            <span>🎵 Музыка:</span>
+            <span>🎵 <span id="musicLabel">Музыка:</span></span>
             <audio id="bgMusic" loop autoplay>
                 <source src="tisheyurev.mp3" type="audio/mpeg">
                 Ваш браузер не поддерживает аудио.
             </audio>
-            <button class="music-btn" id="playPauseBtn">⏸️ Пауза</button>
-            <button class="music-btn" id="stopBtn">⏹️ Стоп</button>
+            <button class="music-btn" id="playPauseBtn">⏸️ <span id="pauseLabel">Пауза</span></button>
+            <button class="music-btn" id="stopBtn">⏹️ <span id="stopLabel">Стоп</span></button>
             <select id="musicSelect" class="music-btn" style="background: inherit;">
                 <option value="tisheyurev.mp3" selected>🎵 tisheyurev.mp3</option>
                 <option value="lowtabyurev.mp3">🎵 лоутаб таллин (1).mp3</option>
@@ -1042,39 +1147,48 @@
         </div>
 
         <div class="random-block">
-            <div class="random-label">случайная мысль</div>
+            <div class="random-label" id="randomLabel">случайная мысль</div>
             <div class="quote-large" id="randomQuoteDisplay">—</div>
             <div class="quote-author" id="randomQuoteAuthor">— Семён Юрьев</div>
             <div class="quote-date" id="randomQuoteDate"></div>
-            <button class="btn" id="newQuoteBtn">🎲 Показать другую</button>
-            <button class="btn" id="copyRandomBtn">📋 Копировать</button>
-            <button class="btn" id="favRandomBtn">⭐ В избранное</button>
+            <button class="btn" id="newQuoteBtn">🎲 <span id="newQuoteLabel">Показать другую</span></button>
+            <button class="btn" id="copyRandomBtn">📋 <span id="copyLabel">Копировать</span></button>
+            <button class="btn" id="shareRandomBtn">📱 <span id="shareLabel">Поделиться</span></button>
+            <button class="btn" id="qrRandomBtn">📱 <span id="qrLabel">QR код</span></button>
+            <button class="btn" id="favRandomBtn">⭐ <span id="favLabel">В избранное</span></button>
         </div>
 
         <div class="search-section">
             <div class="search-wrapper">
                 <span class="search-icon">🔍</span>
                 <input type="text" class="search-input" id="searchInput" placeholder="Поиск по цитатам..." autocomplete="off">
-                <button class="search-clear" id="searchClearBtn" title="Очистить">✖ Очистить</button>
+                <button class="search-clear" id="searchClearBtn" title="Очистить">✖ <span id="clearLabel">Очистить</span></button>
             </div>
-            <div class="search-stats" id="searchStats">всего цитат: 11</div>
+            <div class="search-stats" id="searchStats">всего цитат: 12</div>
         </div>
 
         <div class="section-title">
-            🗂️ Полное собрание
+            🗂️ <span id="collectionLabel">Полное собрание</span>
             <span style="font-size: 1rem; opacity: 0.7;" id="resultCount"></span>
-            <button class="btn" id="showFavoritesBtn">⭐ Показать избранное</button>
+            <button class="btn" id="showFavoritesBtn">⭐ <span id="showFavLabel">Показать избранное</span></button>
         </div>
+
+        <!-- Сортировка -->
+        <div class="sort-controls">
+            <button class="sort-btn" id="sortDateNewBtn">📅 <span id="sortNewLabel">Сначала новые</span></button>
+            <button class="sort-btn" id="sortDateOldBtn">📅 <span id="sortOldLabel">Сначала старые</span></button>
+        </div>
+
         <div class="quotes-grid" id="quotesGrid"></div>
 
         <footer>
-            © 2026 — сборник высказываний (по мотивам реальных событий)
+            <span id="footerText">© 2026 — сборник высказываний (по мотивам реальных событий)</span>
         </footer>
     </div>
 
     <script>
         (function() {
-            // Массив цитат
+            // Массив цитат с добавленной новой фразой
             const quotes = [
                 { text: "Я пошумлю, я пошумлю", date: "23.02.2026" },
                 { text: "Меня убили через не прошиваемую стенку", date: "23.02.2026" },
@@ -1086,11 +1200,115 @@
                 { text: "Я готовлюсь к контрольной по биологии", date: "10.12.2025" },
                 { text: "У меня дела", date: "02.02.2025-н.в" },
                 { text: "Казах калайсын купи мне дайсон", date: "01.12.2025-12.01.2025" },
-                { text: "Лаки съели собаки", date: "12.12.2025" }
+                { text: "Лаки съели собаки", date: "12.12.2025" },
+                { text: "Я из другой семьи", date: "25.02.2026" } // Новая цитата
             ];
+
+            // Казахские переводы цитат
+            const kzQuotes = [
+                { text: "Мен шу шығарамын, мен шу шығарамын", date: "23.02.2026" },
+                { text: "Мені өтпейтін қабырға арқылы өлтірді", date: "23.02.2026" },
+                { text: "Бұл болған кезде болды", date: "23.02.2026" },
+                { text: "Мен ешқашан лоутаб күзетшісі болған емеспін", date: "15.01.2026" },
+                { text: "Юрьев тағы не істеді", date: "29.12.2025" },
+                { text: "Маған килл қажет емес, мен б-ға барамын", date: "30.11.2025" },
+                { text: "Сіз алып тастаңыз дедіңіз, мен алып тастадым", date: "18.12.2025" },
+                { text: "Мен биологиядан бақылауға дайындалып жатырмын", date: "10.12.2025" },
+                { text: "Менің істерім бар", date: "02.02.2025-қ.б" },
+                { text: "Қазақ қалайсың, маған дайсон сатып ал", date: "01.12.2025-12.01.2025" },
+                { text: "Лакиді иттер жеп қойды", date: "12.12.2025" },
+                { text: "Мен басқа отбасынанмын", date: "25.02.2026" }
+            ];
+
+            // Словарь переводов
+            const translations = {
+                ru: {
+                    siteTitle: "Семён Юрьев",
+                    subheadText: "цитаты, которые стали легендой",
+                    musicLabel: "Музыка:",
+                    pauseLabel: "Пауза",
+                    stopLabel: "Стоп",
+                    randomLabel: "случайная мысль",
+                    newQuoteLabel: "Показать другую",
+                    copyLabel: "Копировать",
+                    shareLabel: "Поделиться",
+                    qrLabel: "QR код",
+                    favLabel: "В избранное",
+                    clearLabel: "Очистить",
+                    collectionLabel: "Полное собрание",
+                    showFavLabel: "Показать избранное",
+                    sortNewLabel: "Сначала новые",
+                    sortOldLabel: "Сначала старые",
+                    footerText: "© 2026 — сборник высказываний (по мотивам реальных событий)",
+                    searchPlaceholder: "Поиск по цитатам...",
+                    noResults: "😕 ничего не найдено",
+                    author: "— Семён Юрьев",
+                    favorites: "в избранном",
+                    total: "всего",
+                    found: "найдено",
+                    shown: "показано",
+                    ruBtn: "🇷🇺 Русский",
+                    kzBtn: "🇰🇿 Қазақша",
+                    copied: "Цитата скопирована!",
+                    shareCopied: "Ссылка скопирована в буфер обмена!",
+                    qrError: "Не удалось сгенерировать QR код",
+                    close: "Закрыть"
+                },
+                kz: {
+                    siteTitle: "Семён Юрьев",
+                    subheadText: "аңызға айналған дәйексөздер",
+                    musicLabel: "Музыка:",
+                    pauseLabel: "Үзіліс",
+                    stopLabel: "Тоқтату",
+                    randomLabel: "кездейсоқ ой",
+                    newQuoteLabel: "Басқасын көрсету",
+                    copyLabel: "Көшіру",
+                    shareLabel: "Бөлісу",
+                    qrLabel: "QR код",
+                    favLabel: "Таңдаулыларға",
+                    clearLabel: "Тазалау",
+                    collectionLabel: "Толық жинақ",
+                    showFavLabel: "Таңдаулыларды көрсету",
+                    sortNewLabel: "Алдымен жаңалары",
+                    sortOldLabel: "Алдымен ескілері",
+                    footerText: "© 2026 — дәйексөздер жинағы (нақты оқиғалар негізінде)",
+                    searchPlaceholder: "Дәйексөздерден іздеу...",
+                    noResults: "😕 ештеңе табылмады",
+                    author: "— Семён Юрьев",
+                    favorites: "таңдаулыларда",
+                    total: "барлығы",
+                    found: "табылды",
+                    shown: "көрсетілді",
+                    ruBtn: "🇷🇺 Русский",
+                    kzBtn: "🇰🇿 Қазақша",
+                    copied: "Дәйексөз көшірілді!",
+                    shareCopied: "Сілтеме алмасу буферіне көшірілді!",
+                    qrError: "QR кодты генерациялау мүмкін болмады",
+                    close: "Жабу"
+                }
+            };
+
+            // Текущий язык
+            let currentLang = localStorage.getItem('semenLang') || 'ru';
+
+            // Функция парсинга даты для сортировки
+            function parseDate(dateStr) {
+                if (dateStr.includes('н.в') || dateStr.includes('қ.б')) {
+                    return new Date(9999, 11, 31); // Бесконечность для "н.в" или "қ.б"
+                }
+                if (dateStr.includes('-')) {
+                    // Берем первую дату из диапазона
+                    dateStr = dateStr.split('-')[0];
+                }
+                const [day, month, year] = dateStr.split('.');
+                return new Date(year, month - 1, day);
+            }
 
             // Избранное (загружаем из localStorage)
             let favorites = JSON.parse(localStorage.getItem('semenFavorites')) || [];
+
+            // Текущая сортировка
+            let currentSort = 'new'; // 'new' или 'old'
 
             // DOM элементы
             const randomQuoteDisplay = document.getElementById('randomQuoteDisplay');
@@ -1098,6 +1316,8 @@
             const randomQuoteAuthor = document.getElementById('randomQuoteAuthor');
             const newQuoteBtn = document.getElementById('newQuoteBtn');
             const copyRandomBtn = document.getElementById('copyRandomBtn');
+            const shareRandomBtn = document.getElementById('shareRandomBtn');
+            const qrRandomBtn = document.getElementById('qrRandomBtn');
             const favRandomBtn = document.getElementById('favRandomBtn');
             const quotesGrid = document.getElementById('quotesGrid');
             const showFavoritesBtn = document.getElementById('showFavoritesBtn');
@@ -1115,6 +1335,21 @@
             const searchStats = document.getElementById('searchStats');
             const resultCountSpan = document.getElementById('resultCount');
 
+            // QR элементы
+            const qrModal = document.getElementById('qrModal');
+            const qrContent = document.getElementById('qrContent');
+            const qrQuoteText = document.getElementById('qrQuoteText');
+            const qrCanvas = document.getElementById('qrCanvas');
+            const closeQrBtn = document.getElementById('closeQrBtn');
+
+            // Кнопки сортировки
+            const sortDateNewBtn = document.getElementById('sortDateNewBtn');
+            const sortDateOldBtn = document.getElementById('sortDateOldBtn');
+
+            // Кнопки языка
+            const langRuBtn = document.getElementById('langRuBtn');
+            const langKzBtn = document.getElementById('langKzBtn');
+
             // Музыкальные элементы
             const bgMusic = document.getElementById('bgMusic');
             const playPauseBtn = document.getElementById('playPauseBtn');
@@ -1122,6 +1357,53 @@
             const musicSelect = document.getElementById('musicSelect');
 
             let currentFilter = 'all'; // 'all' или 'favorites'
+
+            // Функция обновления языка
+            function setLanguage(lang) {
+                currentLang = lang;
+                localStorage.setItem('semenLang', lang);
+                
+                // Обновляем активные кнопки
+                langRuBtn.classList.remove('active');
+                langKzBtn.classList.remove('active');
+                if (lang === 'ru') {
+                    langRuBtn.classList.add('active');
+                } else {
+                    langKzBtn.classList.add('active');
+                }
+                
+                // Обновляем текст на странице
+                document.getElementById('siteTitle').textContent = translations[lang].siteTitle;
+                document.getElementById('subheadText').textContent = translations[lang].subheadText;
+                document.getElementById('musicLabel').textContent = translations[lang].musicLabel;
+                document.getElementById('pauseLabel').textContent = translations[lang].pauseLabel;
+                document.getElementById('stopLabel').textContent = translations[lang].stopLabel;
+                document.getElementById('randomLabel').textContent = translations[lang].randomLabel;
+                document.getElementById('newQuoteLabel').textContent = translations[lang].newQuoteLabel;
+                document.getElementById('copyLabel').textContent = translations[lang].copyLabel;
+                document.getElementById('shareLabel').textContent = translations[lang].shareLabel;
+                document.getElementById('qrLabel').textContent = translations[lang].qrLabel;
+                document.getElementById('favLabel').textContent = translations[lang].favLabel;
+                document.getElementById('clearLabel').textContent = translations[lang].clearLabel;
+                document.getElementById('collectionLabel').textContent = translations[lang].collectionLabel;
+                document.getElementById('showFavLabel').textContent = translations[lang].showFavLabel;
+                document.getElementById('sortNewLabel').textContent = translations[lang].sortNewLabel;
+                document.getElementById('sortOldLabel').textContent = translations[lang].sortOldLabel;
+                document.getElementById('footerText').textContent = translations[lang].footerText;
+                
+                // Обновляем placeholder поиска
+                searchInput.placeholder = translations[lang].searchPlaceholder;
+                
+                // Обновляем автора в случайной цитате
+                randomQuoteAuthor.textContent = translations[lang].author;
+                
+                // Перерисовываем сетку цитат
+                renderFilteredQuotes(searchInput.value);
+            }
+
+            // Обработчики языка
+            langRuBtn.addEventListener('click', () => setLanguage('ru'));
+            langKzBtn.addEventListener('click', () => setLanguage('kz'));
 
             // ---- МУЗЫКА ----
             // Попытка автовоспроизведения (может быть заблокировано браузером)
@@ -1131,17 +1413,17 @@
             playPauseBtn.addEventListener('click', () => {
                 if (bgMusic.paused) {
                     bgMusic.play();
-                    playPauseBtn.textContent = '⏸️ Пауза';
+                    playPauseBtn.innerHTML = '⏸️ <span id="pauseLabel">' + translations[currentLang].pauseLabel + '</span>';
                 } else {
                     bgMusic.pause();
-                    playPauseBtn.textContent = '▶️ Воспроизвести';
+                    playPauseBtn.innerHTML = '▶️ <span id="pauseLabel">' + translations[currentLang].pauseLabel + '</span>';
                 }
             });
 
             stopBtn.addEventListener('click', () => {
                 bgMusic.pause();
                 bgMusic.currentTime = 0;
-                playPauseBtn.textContent = '▶️ Воспроизвести';
+                playPauseBtn.innerHTML = '▶️ <span id="pauseLabel">' + translations[currentLang].pauseLabel + '</span>';
             });
 
             musicSelect.addEventListener('change', (e) => {
@@ -1150,9 +1432,9 @@
                 bgMusic.load();
                 if (wasPlaying) {
                     bgMusic.play();
-                    playPauseBtn.textContent = '⏸️ Пауза';
+                    playPauseBtn.innerHTML = '⏸️ <span id="pauseLabel">' + translations[currentLang].pauseLabel + '</span>';
                 } else {
-                    playPauseBtn.textContent = '▶️ Воспроизвести';
+                    playPauseBtn.innerHTML = '▶️ <span id="pauseLabel">' + translations[currentLang].pauseLabel + '</span>';
                 }
             });
 
@@ -1174,6 +1456,16 @@
                 else if (theme === 'video1') themeVideo1Btn.classList.add('active');
                 else if (theme === 'video2') themeVideo2Btn.classList.add('active');
                 else if (theme === 'photo') themePhotoBtn.classList.add('active');
+
+                // Обновляем класс для QR контента
+                qrContent.classList.remove('dark', 'light', 'azure');
+                if (theme === 'dark' || theme === 'video1' || theme === 'video2' || theme === 'photo') {
+                    qrContent.classList.add('dark');
+                } else if (theme === 'light') {
+                    qrContent.classList.add('light');
+                } else if (theme === 'azure') {
+                    qrContent.classList.add('azure');
+                }
 
                 localStorage.setItem('semenTheme', theme);
             }
@@ -1212,62 +1504,101 @@
             function updateRandomFavoriteButton() {
                 const currentText = randomQuoteDisplay.textContent.slice(1, -1); // убираем кавычки
                 if (isFavorite(currentText)) {
-                    favRandomBtn.textContent = '⭐ В избранном';
+                    favRandomBtn.innerHTML = '⭐ <span id="favLabel">' + translations[currentLang].favLabel.replace('В избранное', 'В избранном') + '</span>';
                 } else {
-                    favRandomBtn.textContent = '⭐ В избранное';
+                    favRandomBtn.innerHTML = '⭐ <span id="favLabel">' + translations[currentLang].favLabel + '</span>';
                 }
+            }
+
+            // Функция сортировки цитат
+            function sortQuotes(quotesToSort) {
+                return [...quotesToSort].sort((a, b) => {
+                    const dateA = parseDate(a.date);
+                    const dateB = parseDate(b.date);
+                    
+                    if (currentSort === 'new') {
+                        return dateB - dateA; // Сначала новые
+                    } else {
+                        return dateA - dateB; // Сначала старые
+                    }
+                });
             }
 
             // ---- ОТОБРАЖЕНИЕ ЦИТАТ ----
             function renderFilteredQuotes(filterText = '') {
                 const lowerFilter = filterText.toLowerCase().trim();
                 
+                // Выбираем правильный массив цитат в зависимости от языка
+                const currentQuotes = currentLang === 'ru' ? quotes : kzQuotes;
+                
                 // Сначала фильтруем по поиску
-                let filtered = quotes.filter(q => 
+                let filtered = currentQuotes.filter(q => 
                     q.text.toLowerCase().includes(lowerFilter) || 
                     q.date.includes(lowerFilter)
                 );
 
                 // Затем по избранному, если включен фильтр
                 if (currentFilter === 'favorites') {
-                    filtered = filtered.filter(q => favorites.includes(q.text));
+                    // Для избранного используем русские тексты для сравнения
+                    filtered = filtered.filter((q, index) => favorites.includes(quotes[index].text));
                 }
+
+                // Сортируем
+                filtered = sortQuotes(filtered);
 
                 quotesGrid.innerHTML = '';
 
                 if (filtered.length === 0) {
                     const noResults = document.createElement('div');
                     noResults.className = 'no-results';
-                    noResults.textContent = '😕 ничего не найдено';
+                    noResults.textContent = translations[currentLang].noResults;
                     quotesGrid.appendChild(noResults);
                 } else {
-                    filtered.forEach(quote => {
+                    filtered.forEach((quote, index) => {
+                        // Находим оригинальный индекс для избранного
+                        const originalIndex = currentQuotes.findIndex(q => q.text === quote.text);
+                        const originalQuote = quotes[originalIndex];
+                        
                         const card = document.createElement('div');
-                        card.className = `quote-card ${isFavorite(quote.text) ? 'favorite' : ''}`;
+                        card.className = `quote-card ${isFavorite(originalQuote.text) ? 'favorite' : ''}`;
                         
                         card.innerHTML = `
                             <p>«${quote.text}»</p>
-                            <div class="author">— Семён Юрьев</div>
+                            <div class="author">${translations[currentLang].author}</div>
                             <div class="date">📅 ${quote.date}</div>
                             <div class="card-actions">
                                 <button class="copy-btn" title="Копировать">📋</button>
-                                <button class="fav-btn" title="Избранное">${isFavorite(quote.text) ? '⭐' : '☆'}</button>
+                                <button class="share-btn" title="Поделиться">📱</button>
+                                <button class="qr-btn" title="QR код">📱</button>
+                                <button class="fav-btn" title="Избранное">${isFavorite(originalQuote.text) ? '⭐' : '☆'}</button>
                             </div>
                         `;
 
                         // Кнопка копирования
                         card.querySelector('.copy-btn').addEventListener('click', (e) => {
                             e.stopPropagation();
-                            navigator.clipboard.writeText(`«${quote.text}» — Семён Юрьев`);
-                            alert('Цитата скопирована!');
+                            navigator.clipboard.writeText(`«${quote.text}» — Семён Юрьев (${quote.date})`);
+                            alert(translations[currentLang].copied);
+                        });
+
+                        // Кнопка поделиться
+                        card.querySelector('.share-btn').addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            shareQuote(quote.text, quote.date);
+                        });
+
+                        // Кнопка QR кода
+                        card.querySelector('.qr-btn').addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            showQRCode(quote.text, quote.date);
                         });
 
                         // Кнопка избранного
                         card.querySelector('.fav-btn').addEventListener('click', (e) => {
                             e.stopPropagation();
-                            toggleFavorite(quote.text);
+                            toggleFavorite(originalQuote.text);
                             // Обновляем класс и кнопку
-                            if (isFavorite(quote.text)) {
+                            if (isFavorite(originalQuote.text)) {
                                 card.classList.add('favorite');
                                 e.target.textContent = '⭐';
                             } else {
@@ -1280,25 +1611,73 @@
                     });
                 }
 
-                const total = quotes.length;
+                const total = currentQuotes.length;
                 const found = filtered.length;
-                searchStats.textContent = `всего: ${total} · найдено: ${found} · в избранном: ${favorites.length}`;
-                resultCountSpan.textContent = (found !== total || currentFilter === 'favorites') ? `(показано ${found})` : '';
+                searchStats.textContent = `${translations[currentLang].total}: ${total} · ${translations[currentLang].found}: ${found} · ${translations[currentLang].favorites}: ${favorites.length}`;
+                resultCountSpan.textContent = (found !== total || currentFilter === 'favorites') ? `(${translations[currentLang].shown} ${found})` : '';
             }
 
             // ---- СЛУЧАЙНАЯ ЦИТАТА ----
             function getRandomIndex() {
-                return Math.floor(Math.random() * quotes.length);
+                const currentQuotes = currentLang === 'ru' ? quotes : kzQuotes;
+                return Math.floor(Math.random() * currentQuotes.length);
             }
 
             function showRandomQuote() {
+                const currentQuotes = currentLang === 'ru' ? quotes : kzQuotes;
                 const index = getRandomIndex();
-                const quote = quotes[index];
+                const quote = currentQuotes[index];
                 randomQuoteDisplay.textContent = `«${quote.text}»`;
-                randomQuoteAuthor.textContent = '— Семён Юрьев';
+                randomQuoteAuthor.textContent = translations[currentLang].author;
                 randomQuoteDate.textContent = `📅 ${quote.date}`;
                 updateRandomFavoriteButton();
                 return quote;
+            }
+
+            // ---- ПОДЕЛИТЬСЯ ----
+            function shareQuote(text, date) {
+                const shareText = `«${text}» — Семён Юрьев (${date})`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: translations[currentLang].siteTitle,
+                        text: shareText,
+                        url: window.location.href,
+                    }).catch(err => {
+                        console.log('Ошибка шаринга:', err);
+                    });
+                } else {
+                    navigator.clipboard.writeText(shareText);
+                    alert(translations[currentLang].shareCopied);
+                }
+            }
+
+            // ---- QR КОД ----
+            function showQRCode(text, date) {
+                const fullText = `«${text}» — Семён Юрьев (${date})`;
+                qrQuoteText.textContent = text.length > 50 ? text.substring(0, 50) + '...' : text;
+                
+                // Очищаем canvas
+                const canvas = document.getElementById('qrCanvas');
+                const context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Генерируем QR код
+                QRCode.toCanvas(canvas, fullText, { 
+                    width: 250,
+                    margin: 2,
+                    color: {
+                        dark: '#000000',
+                        light: '#ffffff'
+                    }
+                }, function(error) {
+                    if (error) {
+                        console.error('Ошибка генерации QR:', error);
+                        alert(translations[currentLang].qrError);
+                    } else {
+                        qrModal.classList.add('active');
+                    }
+                });
             }
 
             // ---- ОБРАБОТЧИКИ ----
@@ -1307,25 +1686,58 @@
             });
 
             copyRandomBtn.addEventListener('click', () => {
-                const text = randomQuoteDisplay.textContent + ' ' + randomQuoteAuthor.textContent;
+                const text = randomQuoteDisplay.textContent + ' ' + randomQuoteAuthor.textContent + ' ' + randomQuoteDate.textContent;
                 navigator.clipboard.writeText(text);
-                alert('Цитата скопирована!');
+                alert(translations[currentLang].copied);
+            });
+
+            shareRandomBtn.addEventListener('click', () => {
+                const currentText = randomQuoteDisplay.textContent.slice(1, -1);
+                const currentDate = randomQuoteDate.textContent.replace('📅 ', '');
+                shareQuote(currentText, currentDate);
+            });
+
+            qrRandomBtn.addEventListener('click', () => {
+                const currentText = randomQuoteDisplay.textContent.slice(1, -1);
+                const currentDate = randomQuoteDate.textContent.replace('📅 ', '');
+                showQRCode(currentText, currentDate);
             });
 
             favRandomBtn.addEventListener('click', () => {
                 const currentText = randomQuoteDisplay.textContent.slice(1, -1);
-                toggleFavorite(currentText);
+                // Находим оригинальный русский текст
+                const ruQuote = quotes.find(q => q.text === currentText || 
+                    (currentLang === 'kz' && kzQuotes.find(kz => kz.text === currentText) === kzQuotes[quotes.indexOf(q)]));
+                
+                if (ruQuote) {
+                    toggleFavorite(ruQuote.text);
+                }
                 renderFilteredQuotes(searchInput.value);
             });
 
             showFavoritesBtn.addEventListener('click', () => {
                 if (currentFilter === 'favorites') {
                     currentFilter = 'all';
-                    showFavoritesBtn.textContent = '⭐ Показать избранное';
+                    showFavoritesBtn.innerHTML = '⭐ <span id="showFavLabel">' + translations[currentLang].showFavLabel + '</span>';
                 } else {
                     currentFilter = 'favorites';
-                    showFavoritesBtn.textContent = '📋 Показать всё';
+                    showFavoritesBtn.innerHTML = '📋 <span id="showFavLabel">' + translations[currentLang].showFavLabel.replace('Показать избранное', 'Показать всё').replace('Таңдаулыларды көрсету', 'Барлығын көрсету') + '</span>';
                 }
+                renderFilteredQuotes(searchInput.value);
+            });
+
+            // Сортировка
+            sortDateNewBtn.addEventListener('click', () => {
+                currentSort = 'new';
+                sortDateNewBtn.classList.add('active');
+                sortDateOldBtn.classList.remove('active');
+                renderFilteredQuotes(searchInput.value);
+            });
+
+            sortDateOldBtn.addEventListener('click', () => {
+                currentSort = 'old';
+                sortDateOldBtn.classList.add('active');
+                sortDateNewBtn.classList.remove('active');
                 renderFilteredQuotes(searchInput.value);
             });
 
@@ -1342,9 +1754,27 @@
                 searchInput.focus();
             });
 
+            // Закрытие QR модалки
+            closeQrBtn.addEventListener('click', () => {
+                qrModal.classList.remove('active');
+            });
+
+            qrModal.addEventListener('click', (e) => {
+                if (e.target === qrModal) {
+                    qrModal.classList.remove('active');
+                }
+            });
+
             // ---- ИНИЦИАЛИЗАЦИЯ ----
+            // Устанавливаем сохранённый язык или русский по умолчанию
+            const savedLang = localStorage.getItem('semenLang') || 'ru';
+            setLanguage(savedLang);
+            
             showRandomQuote();
             renderFilteredQuotes('');
+            
+            // Активируем кнопку сортировки по умолчанию
+            sortDateNewBtn.classList.add('active');
         })();
     </script>
 </body>
