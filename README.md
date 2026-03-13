@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Семён Юрьевтің дәйексөздері · музыка + таңдаулылар</title>
     <style>
+        /* ========== существующие стили (без изменений) ========== */
         * {
             margin: 0;
             padding: 0;
@@ -1057,29 +1059,180 @@
             display: flex;
             gap: 10px;
             margin-left: 15px;
+            flex-wrap: wrap;
         }
 
-        /* Медиа-запрос для мобильных устройств */
-        @media (max-width: 600px) {
-            .container { 
-                padding: 25px 18px; 
-            }
-            h1 { 
-                font-size: 2.5rem; 
-            }
-            .quote-large { 
-                font-size: 1.6rem; 
-            }
-            .search-input { 
-                font-size: 1rem; 
-            }
-            .search-clear { 
-                padding: 8px 15px; 
+        /* ========== ОПТИМИЗАЦИЯ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА ========== */
+        /* увеличение областей касания, перестройка на узких экранах */
+
+        /* общие улучшения для кнопок */
+        .btn, .music-btn, .sort-btn, .lang-btn, .theme-btn, .search-clear {
+            min-height: 44px;           /* минимальная высота для удобного нажатия */
+            min-width: 44px;             /* минимальная ширина для иконок */
+            touch-action: manipulation;  /* отключаем двойное увеличение при быстром нажатии */
+        }
+
+        /* верхняя панель: заголовок и переключатели в колонку на маленьких экранах */
+        @media (max-width: 900px) {
+            .container > div:first-child {
+                flex-direction: column;
+                align-items: flex-start !important;
             }
             .language-switcher {
                 margin-left: 0;
-                margin-top: 10px;
+                width: 100%;
+                justify-content: flex-start;
             }
+            .theme-switcher {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        /* адаптация для экранов до 600px (улучшаем существующий медиазапрос) */
+        @media (max-width: 600px) {
+            .container { 
+                padding: 20px 15px; 
+                border-radius: 32px;
+            }
+            h1 { 
+                font-size: 2.2rem; 
+            }
+            .subhead {
+                font-size: 1rem;
+                padding-left: 10px;
+                margin-bottom: 20px;
+            }
+            .quote-large { 
+                font-size: 1.4rem; 
+            }
+            .quote-large::before {
+                font-size: 3rem;
+                left: -15px;
+                top: -10px;
+            }
+            .random-block {
+                padding: 25px 20px;
+            }
+            .random-block .btn {
+                margin-right: 8px;
+                margin-bottom: 8px;
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            .search-input { 
+                font-size: 1rem; 
+                padding: 12px 0;
+            }
+            .search-clear { 
+                padding: 8px 15px; 
+                font-size: 1.1rem;
+            }
+            .search-wrapper {
+                padding-left: 18px;
+            }
+            .search-stats {
+                margin-left: 10px;
+                font-size: 0.9rem;
+            }
+            .music-player {
+                padding: 12px 15px;
+                gap: 10px;
+                border-radius: 40px;
+            }
+            .music-btn, .music-player select {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+                flex: 1 1 auto;
+                min-width: 100px;
+            }
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+            .quotes-grid {
+                grid-template-columns: 1fr;  /* на узких экране карточки в один столбец */
+                gap: 15px;
+            }
+            .quote-card {
+                padding: 20px 18px;
+            }
+            .quote-card p {
+                font-size: 1.1rem;
+            }
+            .no-results {
+                font-size: 1.3rem;
+                padding: 40px 20px;
+            }
+            footer {
+                margin-top: 30px;
+                font-size: 0.8rem;
+            }
+            .qr-content {
+                padding: 20px;
+                width: 95%;
+            }
+            #qrCanvas {
+                width: 100%;
+                height: auto;
+                max-width: 250px;
+            }
+        }
+
+        /* для очень маленьких телефонов (до 400px) */
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 15px 12px;
+            }
+            .random-block {
+                padding: 20px 15px;
+            }
+            .quote-large {
+                font-size: 1.2rem;
+            }
+            .btn, .music-btn, .lang-btn, .theme-btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .music-player {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .music-btn, .music-player select {
+                width: 100%;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .quote-card p {
+                font-size: 1rem;
+            }
+            .card-actions button {
+                font-size: 1.2rem;
+                padding: 8px;
+            }
+        }
+
+        /* исправление для кнопок внутри карточек (они были маленькие) */
+        .quote-card .card-actions button {
+            min-width: 44px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(128, 128, 128, 0.1);
+            transition: background 0.2s;
+        }
+        .quote-card .card-actions button:hover {
+            background: rgba(128, 128, 128, 0.2);
+        }
+        .quote-card .card-actions {
+            gap: 8px;
+            flex-wrap: wrap;
         }
     </style>
     <!-- Библиотека для QR кода -->
@@ -1117,6 +1270,8 @@
                 <div class="language-switcher">
                     <button class="lang-btn" id="langRuBtn" data-lang="ru">🇷🇺 Русский</button>
                     <button class="lang-btn" id="langKzBtn" data-lang="kz">🇰🇿 Қазақша</button>
+                    <button class="lang-btn" id="langUzBtn" data-lang="uz">🇺🇿 O'zbek</button>
+                    <button class="lang-btn" id="langTgBtn" data-lang="tg">🇹🇯 Тоҷикӣ</button>
                 </div>
                 <div class="theme-switcher">
                     <button class="theme-btn" id="themeDarkBtn" data-theme="dark">🌙 тёмная</button>
@@ -1155,6 +1310,8 @@
             <button class="btn" id="shareRandomBtn">📱 <span id="shareLabel">Поделиться</span></button>
             <button class="btn" id="qrRandomBtn">📱 <span id="qrLabel">QR код</span></button>
             <button class="btn" id="favRandomBtn">⭐ <span id="favLabel">В избранное</span></button>
+            <!-- Новая кнопка "Аксиома Юрьева" -->
+            <button class="btn" id="axiomBtn">📜 <span id="axiomLabel">Аксиома Юрьева</span></button>
         </div>
 
         <div class="search-section">
@@ -1163,7 +1320,7 @@
                 <input type="text" class="search-input" id="searchInput" placeholder="Поиск по цитатам..." autocomplete="off">
                 <button class="search-clear" id="searchClearBtn" title="Очистить">✖ <span id="clearLabel">Очистить</span></button>
             </div>
-            <div class="search-stats" id="searchStats">всего цитат: 12</div>
+            <div class="search-stats" id="searchStats">всего цитат: 14</div>
         </div>
 
         <div class="section-title">
@@ -1187,7 +1344,7 @@
 
     <script>
         (function() {
-            // Массив цитат с добавленной новой фразой
+            // МАССИВ ЦИТАТ (добавлены две новые)
             const quotes = [
                 { text: "Я пошумлю, я пошумлю", date: "23.02.2026" },
                 { text: "Меня убили через не прошиваемую стенку", date: "23.02.2026" },
@@ -1200,10 +1357,13 @@
                 { text: "У меня дела", date: "02.02.2025-н.в" },
                 { text: "Казах калайсын купи мне дайсон", date: "01.12.2025-12.01.2025" },
                 { text: "Лаки съели собаки", date: "12.12.2025" },
-                { text: "Я из другой семьи", date: "25.02.2026" } // Новая цитата
+                { text: "Я из другой семьи", date: "25.02.2026" },
+                // ДВЕ НОВЫЕ ЦИТАТЫ:
+                { text: "когда выйду тогда выйду", date: "06.08.2026" },
+                { text: "мне сейчас гулять вообще не камельфо", date: "06.08.2026" }
             ];
 
-            // Казахские переводы цитат
+            // Казахские переводы цитат (с добавленными новыми)
             const kzQuotes = [
                 { text: "Мен шу шығарамын, мен шу шығарамын", date: "23.02.2026" },
                 { text: "Мені өтпейтін қабырға арқылы өлтірді", date: "23.02.2026" },
@@ -1216,10 +1376,49 @@
                 { text: "Менің істерім бар", date: "02.02.2025-қ.б" },
                 { text: "Қазақ қалайсың, маған дайсон сатып ал", date: "01.12.2025-12.01.2025" },
                 { text: "Лакиді иттер жеп қойды", date: "12.12.2025" },
-                { text: "Мен басқа отбасынанмын", date: "25.02.2026" }
+                { text: "Мен басқа отбасынанмын", date: "25.02.2026" },
+                // Переводы новых цитат:
+                { text: "шыққанда шығамын", date: "06.08.2026" },
+                { text: "маған қазір серуендеу мүлдем комильфо емес", date: "06.08.2026" }
             ];
 
-            // Словарь переводов
+            // Узбекские переводы цитат
+            const uzQuotes = [
+                { text: "Men shovqin qilaman, men shovqin qilaman", date: "23.02.2026" },
+                { text: "Meni o‘tib bo‘lmaydigan devor orqali o‘ldirishdi", date: "23.02.2026" },
+                { text: "Bu bo‘lgan paytda bo‘lgan", date: "23.02.2026" },
+                { text: "Men hech qachon lautab qo‘riqchisi bo‘lmaganman", date: "15.01.2026" },
+                { text: "Yurev yana nima qildi", date: "29.12.2025" },
+                { text: "Menga kill kerak emas, men b-ga boraman", date: "30.11.2025" },
+                { text: "Siz olib tashlang dedingiz, men olib tashladim", date: "18.12.2025" },
+                { text: "Men biologiyadan nazoratga tayyorlanyapman", date: "10.12.2025" },
+                { text: "Ishlarim bor", date: "02.02.2025-н.в" },
+                { text: "Qozoq qalaysan, menga dyson sotib ol", date: "01.12.2025-12.01.2025" },
+                { text: "Lakini itlar yeb qo‘ydi", date: "12.12.2025" },
+                { text: "Men boshqa oiladanman", date: "25.02.2026" },
+                { text: "chiqqanimda chiqaman", date: "06.08.2026" },
+                { text: "menga hozir sayr qilish umuman komilfo emas", date: "06.08.2026" }
+            ];
+
+            // Таджикские переводы цитат
+            const tgQuotes = [
+                { text: "Ман ғавғо мекунам, ман ғавғо мекунам", date: "23.02.2026" },
+                { text: "Маро тавассути девори гузаранда куштанд", date: "23.02.2026" },
+                { text: "Ин вақте буд, ки буд", date: "23.02.2026" },
+                { text: "Ман ҳеҷ гоҳ посбони лоутаб набудам", date: "15.01.2026" },
+                { text: "Юрев боз чӣ кард", date: "29.12.2025" },
+                { text: "Ба ман килл лозим нест, ман ба б меравам", date: "30.11.2025" },
+                { text: "Шумо гуфтед, ки гиред, ман гирифтам", date: "18.12.2025" },
+                { text: "Ман ба санҷиши биологӣ омода мешавам", date: "10.12.2025" },
+                { text: "Корҳоям ҳаст", date: "02.02.2025-ҳ.в" },
+                { text: "Қазоқ қалайсын, ба ман дайсон харед", date: "01.12.2025-12.01.2025" },
+                { text: "Лакиро сагҳо хӯрданд", date: "12.12.2025" },
+                { text: "Ман аз оилаи дигарам", date: "25.02.2026" },
+                { text: "вақте ки мебароям, мебароям", date: "06.08.2026" },
+                { text: "ба ман ҳозир сайр кардан комилан комилфо нест", date: "06.08.2026" }
+            ];
+
+            // Словарь переводов (добавлены узбекский и таджикский)
             const translations = {
                 ru: {
                     siteTitle: "Семён Юрьев",
@@ -1246,12 +1445,12 @@
                     total: "всего",
                     found: "найдено",
                     shown: "показано",
-                    ruBtn: "🇷🇺 Русский",
-                    kzBtn: "🇰🇿 Қазақша",
                     copied: "Цитата скопирована!",
                     shareCopied: "Ссылка скопирована в буфер обмена!",
                     qrError: "Не удалось сгенерировать QR код",
-                    close: "Закрыть"
+                    close: "Закрыть",
+                    axiomLabel: "Аксиома Юрьева",
+                    axiomText: "Юрьев Семён отвечает на звонки либо со 2 раза, либо не отвечает вообще"
                 },
                 kz: {
                     siteTitle: "Семён Юрьев",
@@ -1278,12 +1477,76 @@
                     total: "барлығы",
                     found: "табылды",
                     shown: "көрсетілді",
-                    ruBtn: "🇷🇺 Русский",
-                    kzBtn: "🇰🇿 Қазақша",
                     copied: "Дәйексөз көшірілді!",
                     shareCopied: "Сілтеме алмасу буферіне көшірілді!",
                     qrError: "QR кодты генерациялау мүмкін болмады",
-                    close: "Жабу"
+                    close: "Жабу",
+                    axiomLabel: "Юрьев аксиомасы",
+                    axiomText: "Юрьев Семён телефонға не екінші рет қоңырау шалғанда жауап береді, не мүлдем жауап бермейді"
+                },
+                uz: {
+                    siteTitle: "Semyon Yuryev",
+                    subheadText: "afsonaga aylangan iqtiboslar",
+                    musicLabel: "Musiqa:",
+                    pauseLabel: "Pauza",
+                    stopLabel: "To'xtatish",
+                    randomLabel: "tasodifiy fikr",
+                    newQuoteLabel: "Boshqasini ko'rsatish",
+                    copyLabel: "Nusxalash",
+                    shareLabel: "Ulashish",
+                    qrLabel: "QR kod",
+                    favLabel: "Saralanganlarga",
+                    clearLabel: "Tozalash",
+                    collectionLabel: "To'liq to'plam",
+                    showFavLabel: "Saralanganlarni ko'rsatish",
+                    sortNewLabel: "Avval yangilari",
+                    sortOldLabel: "Avval eskilari",
+                    footerText: "© 2026 — iqtiboslar to'plami (haqiqiy voqealarga asoslangan)",
+                    searchPlaceholder: "Iqtiboslardan qidirish...",
+                    noResults: "😕 hech narsa topilmadi",
+                    author: "— Semyon Yuryev",
+                    favorites: "saralanganlarda",
+                    total: "jami",
+                    found: "topildi",
+                    shown: "ko'rsatilmoqda",
+                    copied: "Iqtibos nusxalandi!",
+                    shareCopied: "Havola almashish buferiga nusxalandi!",
+                    qrError: "QR kodni yaratish imkoni bo‘lmadi",
+                    close: "Yopish",
+                    axiomLabel: "Yuryev aksiomasi",
+                    axiomText: "Yuryev Semyon qo'ng'iroqlarga yo ikkinchi marta javob beradi, yoki umuman javob bermaydi"
+                },
+                tg: {
+                    siteTitle: "Семён Юрьев",
+                    subheadText: "иқтибосҳое, ки афсона шуданд",
+                    musicLabel: "Мусиқӣ:",
+                    pauseLabel: "Таваққуф",
+                    stopLabel: "Бас кардан",
+                    randomLabel: "фикри тасодуфӣ",
+                    newQuoteLabel: "Дигарашро нишон додан",
+                    copyLabel: "Нусхабардорӣ",
+                    shareLabel: "Мубодила",
+                    qrLabel: "QR код",
+                    favLabel: "Ба интихобшудаҳо",
+                    clearLabel: "Тоза кардан",
+                    collectionLabel: "Маҷмӯаи пурра",
+                    showFavLabel: "Интихобшудаҳоро нишон додан",
+                    sortNewLabel: "Аввал навҳо",
+                    sortOldLabel: "Аввал кӯҳнаҳо",
+                    footerText: "© 2026 — маҷмӯаи иқтибосҳо (дар асоси воқеаҳои воқеӣ)",
+                    searchPlaceholder: "Ҷустуҷӯи иқтибосҳо...",
+                    noResults: "😕 ҳеҷ чиз ёфт нашуд",
+                    author: "— Семён Юрьев",
+                    favorites: "дар интихобшудаҳо",
+                    total: "ҳамагӣ",
+                    found: "ёфт шуд",
+                    shown: "нишон дода шудааст",
+                    copied: "Иқтибос нусхабардорӣ шуд!",
+                    shareCopied: "Пайванд ба буфери мубодила нусхабардорӣ шуд!",
+                    qrError: "QR код тавлид карда нашуд",
+                    close: "Пӯшидан",
+                    axiomLabel: "Аксиомаи Юрьев",
+                    axiomText: "Юрьев Семён ба зангҳо ё бор дуюм ҷавоб медиҳад, ё умуман ҷавоб намедиҳад"
                 }
             };
 
@@ -1292,7 +1555,7 @@
 
             // Функция парсинга даты для сортировки
             function parseDate(dateStr) {
-                if (dateStr.includes('н.в') || dateStr.includes('қ.б')) {
+                if (dateStr.includes('н.в') || dateStr.includes('қ.б') || dateStr.includes('ҳ.в')) {
                     return new Date(9999, 11, 31); // Бесконечность для "н.в" или "қ.б"
                 }
                 if (dateStr.includes('-')) {
@@ -1309,6 +1572,9 @@
             // Текущая сортировка
             let currentSort = 'new'; // 'new' или 'old'
 
+            // Индекс последней показанной случайной цитаты
+            let currentRandomIndex = 0;
+
             // DOM элементы
             const randomQuoteDisplay = document.getElementById('randomQuoteDisplay');
             const randomQuoteDate = document.getElementById('randomQuoteDate');
@@ -1320,6 +1586,7 @@
             const favRandomBtn = document.getElementById('favRandomBtn');
             const quotesGrid = document.getElementById('quotesGrid');
             const showFavoritesBtn = document.getElementById('showFavoritesBtn');
+            const axiomBtn = document.getElementById('axiomBtn');
 
             const themeDarkBtn = document.getElementById('themeDarkBtn');
             const themeLightBtn = document.getElementById('themeLightBtn');
@@ -1348,6 +1615,8 @@
             // Кнопки языка
             const langRuBtn = document.getElementById('langRuBtn');
             const langKzBtn = document.getElementById('langKzBtn');
+            const langUzBtn = document.getElementById('langUzBtn');
+            const langTgBtn = document.getElementById('langTgBtn');
 
             // Музыкальные элементы
             const bgMusic = document.getElementById('bgMusic');
@@ -1357,19 +1626,28 @@
 
             let currentFilter = 'all'; // 'all' или 'favorites'
 
+            // Функция получения массива цитат по языку
+            function getQuotesArray(lang) {
+                switch (lang) {
+                    case 'ru': return quotes;
+                    case 'kz': return kzQuotes;
+                    case 'uz': return uzQuotes;
+                    case 'tg': return tgQuotes;
+                    default: return quotes;
+                }
+            }
+
             // Функция обновления языка
             function setLanguage(lang) {
                 currentLang = lang;
                 localStorage.setItem('semenLang', lang);
                 
                 // Обновляем активные кнопки
-                langRuBtn.classList.remove('active');
-                langKzBtn.classList.remove('active');
-                if (lang === 'ru') {
-                    langRuBtn.classList.add('active');
-                } else {
-                    langKzBtn.classList.add('active');
-                }
+                [langRuBtn, langKzBtn, langUzBtn, langTgBtn].forEach(btn => btn.classList.remove('active'));
+                if (lang === 'ru') langRuBtn.classList.add('active');
+                else if (lang === 'kz') langKzBtn.classList.add('active');
+                else if (lang === 'uz') langUzBtn.classList.add('active');
+                else if (lang === 'tg') langTgBtn.classList.add('active');
                 
                 // Обновляем текст на странице
                 document.getElementById('siteTitle').textContent = translations[lang].siteTitle;
@@ -1389,6 +1667,7 @@
                 document.getElementById('sortNewLabel').textContent = translations[lang].sortNewLabel;
                 document.getElementById('sortOldLabel').textContent = translations[lang].sortOldLabel;
                 document.getElementById('footerText').textContent = translations[lang].footerText;
+                document.getElementById('axiomLabel').textContent = translations[lang].axiomLabel;
                 
                 // Обновляем placeholder поиска
                 searchInput.placeholder = translations[lang].searchPlaceholder;
@@ -1398,11 +1677,15 @@
                 
                 // Перерисовываем сетку цитат
                 renderFilteredQuotes(searchInput.value);
+                // Обновляем случайную цитату
+                showRandomQuote();
             }
 
             // Обработчики языка
             langRuBtn.addEventListener('click', () => setLanguage('ru'));
             langKzBtn.addEventListener('click', () => setLanguage('kz'));
+            langUzBtn.addEventListener('click', () => setLanguage('uz'));
+            langTgBtn.addEventListener('click', () => setLanguage('tg'));
 
             // ---- МУЗЫКА ----
             // Попытка автовоспроизведения (может быть заблокировано браузером)
@@ -1501,9 +1784,12 @@
 
             // Обновление кнопки в случайной цитате
             function updateRandomFavoriteButton() {
-                const currentText = randomQuoteDisplay.textContent.slice(1, -1); // убираем кавычки
-                if (isFavorite(currentText)) {
-                    favRandomBtn.innerHTML = '⭐ <span id="favLabel">' + translations[currentLang].favLabel.replace('В избранное', 'В избранном') + '</span>';
+                const currentQuotes = getQuotesArray(currentLang);
+                const quote = currentQuotes[currentRandomIndex];
+                if (quote && isFavorite(quotes[currentRandomIndex].text)) {
+                    favRandomBtn.innerHTML = '⭐ <span id="favLabel">' + (currentLang === 'ru' ? 'В избранном' : 
+                        currentLang === 'kz' ? 'Таңдаулыларда' :
+                        currentLang === 'uz' ? 'Saralanganlarda' : 'Дар интихобшудаҳо') + '</span>';
                 } else {
                     favRandomBtn.innerHTML = '⭐ <span id="favLabel">' + translations[currentLang].favLabel + '</span>';
                 }
@@ -1528,7 +1814,7 @@
                 const lowerFilter = filterText.toLowerCase().trim();
                 
                 // Выбираем правильный массив цитат в зависимости от языка
-                const currentQuotes = currentLang === 'ru' ? quotes : kzQuotes;
+                const currentQuotes = getQuotesArray(currentLang);
                 
                 // Сначала фильтруем по поиску
                 let filtered = currentQuotes.filter(q => 
@@ -1538,8 +1824,11 @@
 
                 // Затем по избранному, если включен фильтр
                 if (currentFilter === 'favorites') {
-                    // Для избранного используем русские тексты для сравнения
-                    filtered = filtered.filter((q, index) => favorites.includes(quotes[index].text));
+                    // Для избранного используем русские тексты для сравнения по индексам
+                    filtered = filtered.filter((q, index) => {
+                        const originalIndex = currentQuotes.findIndex(item => item.text === q.text);
+                        return favorites.includes(quotes[originalIndex].text);
+                    });
                 }
 
                 // Сортируем
@@ -1553,7 +1842,7 @@
                     noResults.textContent = translations[currentLang].noResults;
                     quotesGrid.appendChild(noResults);
                 } else {
-                    filtered.forEach((quote, index) => {
+                    filtered.forEach((quote) => {
                         // Находим оригинальный индекс для избранного
                         const originalIndex = currentQuotes.findIndex(q => q.text === quote.text);
                         const originalQuote = quotes[originalIndex];
@@ -1618,19 +1907,29 @@
 
             // ---- СЛУЧАЙНАЯ ЦИТАТА ----
             function getRandomIndex() {
-                const currentQuotes = currentLang === 'ru' ? quotes : kzQuotes;
+                const currentQuotes = getQuotesArray(currentLang);
                 return Math.floor(Math.random() * currentQuotes.length);
             }
 
             function showRandomQuote() {
-                const currentQuotes = currentLang === 'ru' ? quotes : kzQuotes;
-                const index = getRandomIndex();
-                const quote = currentQuotes[index];
+                const currentQuotes = getQuotesArray(currentLang);
+                currentRandomIndex = getRandomIndex();
+                const quote = currentQuotes[currentRandomIndex];
                 randomQuoteDisplay.textContent = `«${quote.text}»`;
                 randomQuoteAuthor.textContent = translations[currentLang].author;
                 randomQuoteDate.textContent = `📅 ${quote.date}`;
                 updateRandomFavoriteButton();
                 return quote;
+            }
+
+            // ---- АКСИОМА ЮРЬЕВА ----
+            function showAxiom() {
+                const axiomText = translations[currentLang].axiomText;
+                randomQuoteDisplay.textContent = `«${axiomText}»`;
+                randomQuoteAuthor.textContent = translations[currentLang].author;
+                randomQuoteDate.textContent = "📅 аксиома";
+                // Для аксиомы не сохраняем индекс, но кнопка избранного будет работать по тексту
+                updateRandomFavoriteButton();
             }
 
             // ---- ПОДЕЛИТЬСЯ ----
@@ -1704,15 +2003,21 @@
 
             favRandomBtn.addEventListener('click', () => {
                 const currentText = randomQuoteDisplay.textContent.slice(1, -1);
-                // Находим оригинальный русский текст
-                const ruQuote = quotes.find(q => q.text === currentText || 
-                    (currentLang === 'kz' && kzQuotes.find(kz => kz.text === currentText) === kzQuotes[quotes.indexOf(q)]));
-                
-                if (ruQuote) {
-                    toggleFavorite(ruQuote.text);
+                // Если это аксиома (нет в массиве), добавляем напрямую
+                const currentQuotes = getQuotesArray(currentLang);
+                const index = currentQuotes.findIndex(q => q.text === currentText);
+                if (index !== -1) {
+                    // Это обычная цитата, берём русский текст по индексу
+                    toggleFavorite(quotes[index].text);
+                } else {
+                    // Это аксиома, добавляем по её тексту
+                    toggleFavorite(currentText);
                 }
                 renderFilteredQuotes(searchInput.value);
             });
+
+            // Обработчик для кнопки "Аксиома Юрьева"
+            axiomBtn.addEventListener('click', showAxiom);
 
             showFavoritesBtn.addEventListener('click', () => {
                 if (currentFilter === 'favorites') {
@@ -1720,7 +2025,10 @@
                     showFavoritesBtn.innerHTML = '⭐ <span id="showFavLabel">' + translations[currentLang].showFavLabel + '</span>';
                 } else {
                     currentFilter = 'favorites';
-                    showFavoritesBtn.innerHTML = '📋 <span id="showFavLabel">' + translations[currentLang].showFavLabel.replace('Показать избранное', 'Показать всё').replace('Таңдаулыларды көрсету', 'Барлығын көрсету') + '</span>';
+                    showFavoritesBtn.innerHTML = '📋 <span id="showFavLabel">' + 
+                        (currentLang === 'ru' ? 'Показать всё' : 
+                         currentLang === 'kz' ? 'Барлығын көрсету' :
+                         currentLang === 'uz' ? 'Hammasini ko\'rsatish' : 'Ҳамаро нишон додан') + '</span>';
                 }
                 renderFilteredQuotes(searchInput.value);
             });
